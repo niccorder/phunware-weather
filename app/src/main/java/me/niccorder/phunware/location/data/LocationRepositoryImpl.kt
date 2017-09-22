@@ -65,7 +65,7 @@ class LocationRepositoryImpl @Inject constructor(
             Flowable.create<Address>(
                     {
                         try {
-                            geocoder.getFromLocationName(zipCode, 1)[0]
+                            it.onNext(geocoder.getFromLocationName(zipCode, 1)[0])
                         } catch (t: Throwable) {
                             it.onError(t)
                         }
@@ -85,6 +85,5 @@ class LocationRepositoryImpl @Inject constructor(
                 local.copy(city = remote.city)
             })
             .doOnNext { if (Location.EMPTY == it) throw IOException() }
-            .doOnNext { locationDao.insertLocation(it) }
             .subscribeOn(Schedulers.io())
 }
