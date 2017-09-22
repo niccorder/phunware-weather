@@ -1,0 +1,115 @@
+apply from: "$rootDir/config.gradle"
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+  compileSdkVersion project.ext.compileSdk
+  buildToolsVersion project.ext.buildToolsVersion
+
+  defaultConfig {
+    applicationId project.ext.basePackage
+    minSdkVersion project.ext.minSdk
+    targetSdkVersion project.ext.targetSdk
+    versionCode project.ext.versionCode
+    versionName project.ext.versionName
+
+    vectorDrawables.useSupportLibrary = true
+
+    buildConfigField 'String', 'WEATHER_BASE_URL', '"https://api.darksky.net/"'
+    buildConfigField 'String', 'WEATHER_API_KEY', '"eb6c2089bde2e34372974beec082cff9"'
+    buildConfigField 'String', 'LOCATION_BASE_URL', '"https://www.zipcodeapi.com/"'
+    buildConfigField 'String', 'LOCATION_API_KEY', '"ZBt2tDluPkHjSCRHFzrBIrcLsFAIT4tSGXV9AhEpBlItYzaE8CgR4sCw8df1iIUY"'
+
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
+  }
+
+  buildTypes {
+    release {
+      debuggable false
+      minifyEnabled true
+      shrinkResources true
+
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    debug {
+      debuggable true
+      minifyEnabled false
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+
+  packagingOptions {
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE.txt'
+    exclude 'META-INF/rxjava.properties'
+  }
+}
+
+dependencies {
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:${project.ext.kotlin_version}"
+
+  implementation project.ext.appcompatv7
+  implementation project.ext.recyclerview
+  implementation project.ext.design
+  implementation project.ext.cardview
+  implementation project.ext.constraintLayout
+
+  kapt project.ext.lifecycleProcessor
+  implementation project.ext.lifecycle
+  implementation project.ext.lifecycleExtensions
+
+  kapt project.ext.room_processor
+  implementation project.ext.room
+  implementation project.ext.room_rxjava
+
+  implementation project.ext.knotterknife
+  implementation project.ext.timber
+  implementation project.ext.glide
+
+  compileOnly project.ext.jsr
+  kapt project.ext.daggerProcessor
+  kapt project.ext.daggerAndroidProcessor
+  implementation project.ext.dagger
+  implementation project.ext.daggerAndroidSupport
+
+  implementation project.ext.rxjava
+  implementation project.ext.rxandroid
+  implementation project.ext.rxbinding
+  implementation project.ext.rxbinding_supportv4
+  implementation project.ext.rxbinding_appcompatv7
+  implementation project.ext.rxbinding_design
+  implementation project.ext.rxbinding_recycler
+
+  implementation project.ext.okhttp
+  implementation project.ext.retrofit
+  implementation project.ext.retrofit_rxjava
+  implementation project.ext.retrofit_gson
+
+  testImplementation project.ext.junit
+  testImplementation project.ext.mockito
+  testImplementation project.ext.truth
+  implementation 'com.afollestad.material-dialogs:core:0.9.4.7'
+
+  androidTestImplementation(project.ext.espresso, {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+}

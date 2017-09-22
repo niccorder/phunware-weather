@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:padding="@dimen/spacing_normal"
+  tools:context=".weather.view.WeatherActivity">
+
+  <RelativeLayout
+    android:id="@+id/current_status_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="@dimen/padding_normal">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_centerVertical="true"
+      android:text="@string/temperature_title"
+      android:textStyle="bold" />
+
+    <TextView
+      android:id="@+id/temperature"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_gravity="center"
+      android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+  </RelativeLayout>
+
+  <View
+    android:id="@+id/divider"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_below="@+id/current_status_container"
+    android:layout_marginBottom="@dimen/spacing_normal"
+    android:layout_marginTop="@dimen/spacing_normal"
+    android:background="@drawable/divider_gradient" />
+
+  <TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/divider">
+
+    <TableRow
+      android:layout_marginBottom="@dimen/spacing_micro"
+      android:layout_marginTop="@dimen/spacing_micro">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/zip_code_title"
+        android:textStyle="bold" />
+
+      <TextView
+        android:id="@+id/zip_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    </TableRow>
+
+    <TableRow
+      android:layout_marginBottom="@dimen/spacing_micro"
+      android:layout_marginTop="@dimen/spacing_micro">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/latitude_title"
+        android:textStyle="bold" />
+
+      <TextView
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    </TableRow>
+
+    <TableRow
+      android:layout_marginBottom="@dimen/spacing_micro"
+      android:layout_marginTop="@dimen/spacing_micro">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/longitude"
+        android:textStyle="bold" />
+
+      <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    </TableRow>
+
+    <TableRow
+      android:id="@+id/humidity_row"
+      android:layout_marginBottom="@dimen/spacing_micro"
+      android:layout_marginTop="@dimen/spacing_micro"
+      android:visibility="gone">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/humidity_title"
+        android:textStyle="bold" />
+
+      <TextView
+        android:id="@+id/humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    </TableRow>
+
+    <TableRow
+      android:id="@+id/summary_row"
+      android:layout_marginBottom="@dimen/spacing_micro"
+      android:layout_marginTop="@dimen/spacing_micro"
+      android:visibility="gone">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/summary_title"
+        android:textStyle="bold" />
+
+      <TextView
+        android:id="@+id/summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    </TableRow>
+  </TableLayout>
+</RelativeLayout>

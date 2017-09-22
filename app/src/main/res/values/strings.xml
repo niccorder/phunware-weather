@@ -1,0 +1,13 @@
+<resources>
+  <string name="app_name">Phunware Interview</string>
+  <string name="activity_weather_label">Weather</string>
+  <string name="add_location_title">Add Location</string>
+  <string name="add_location_input_hint">Enter a zip code</string>
+  <string name="add">Add</string>
+  <string name="summary_title">Summary:</string>
+  <string name="temperature_title">Temperature:</string>
+  <string name="humidity_title">Humidity:</string>
+  <string name="latitude_title">Latitude:</string>
+  <string name="longitude">Longitude:</string>
+  <string name="zip_code_title">Zip Code:</string>
+</resources>

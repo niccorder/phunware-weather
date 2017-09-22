@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- standard metrics -->
+  <dimen name="spacing_normal">8dp</dimen>
+  <dimen name="spacing_micro">4dp</dimen>
+  <dimen name="padding_normal">16dp</dimen>
+  <dimen name="padding_normal_button">12dp</dimen>
+  <dimen name="spacing_large">32dp</dimen>
+  <dimen name="touch_raise">6dp</dimen>
+  <dimen name="card_elevation">0dp</dimen>
+  <dimen name="card_radius">2dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
+  <dimen name="app_bar_height">180dp</dimen>
+
+  <dimen name="text_size_xsmall">11sp</dimen>
+  <dimen name="text_size_small">12sp</dimen>
+  <dimen name="text_size_body">13sp</dimen>
+  <dimen name="text_size_medium">14sp</dimen>
+  <dimen name="text_size_large">18sp</dimen>
+  <dimen name="text_size_xlarge">20sp</dimen>
+
+  <!-- line spacing -->
+  <item name="body_1_spacing" format="float" type="dimen">1.22448979592</item>
+
+  <!-- Aspect Ratios -->
+  <item name="aspect_16_9" format="float" type="dimen">1.7778</item>
+</resources>
