@@ -4,6 +4,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import me.niccorder.phunware.data.LocationRepository
 import me.niccorder.phunware.location.view.LocationListView
+import me.niccorder.phunware.model.Location
 import me.niccorder.scopes.ActivityScope
 import timber.log.Timber
 import javax.inject.Inject
@@ -14,17 +15,17 @@ import javax.inject.Inject
 @ActivityScope
 class LocationListPresenterImpl @Inject constructor(
   internal val view: LocationListView,
-  private val locationRepository: me.niccorder.phunware.data.LocationRepository
+  private val locationRepository: LocationRepository
 ) : LocationListPresenter {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
-  private val locations: MutableList<me.niccorder.phunware.model.Location> = mutableListOf()
+  private val locations: MutableList<Location> = mutableListOf()
 
   override fun destroy() {
     disposables.clear()
   }
 
-  override fun getLocation(position: Int): me.niccorder.phunware.model.Location = locations[position]
+  override fun getLocation(position: Int): Location = locations[position]
 
   override fun locationCount(): Int = locations.size
 
@@ -40,7 +41,7 @@ class LocationListPresenterImpl @Inject constructor(
     )
   }
 
-  internal fun onLoadLocationsSuccess(locations: MutableList<me.niccorder.phunware.model.Location>) {
+  internal fun onLoadLocationsSuccess(locations: List<Location>) {
     Timber.d("onLoadLocationsSuccess()")
 
     if (this.locations.isEmpty()) {
@@ -60,7 +61,7 @@ class LocationListPresenterImpl @Inject constructor(
     view.showAddLocationInput(true)
   }
 
-  override fun onLocationAdded(location: me.niccorder.phunware.model.Location) {
+  override fun onLocationAdded(location: Location) {
     Timber.d("onLocationAdded()")
 
     locations.add(location)

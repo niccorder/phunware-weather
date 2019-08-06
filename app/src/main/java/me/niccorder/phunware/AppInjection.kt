@@ -13,9 +13,9 @@ import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import me.niccorder.phunware.data.RepositoryModule
 import me.niccorder.phunware.data.local.LocalModule
 import me.niccorder.phunware.data.remote.RemoteModule
-import me.niccorder.phunware.data.repository.RepositoryModule
 import me.niccorder.phunware.location.LocationModule
 import me.niccorder.phunware.location.view.LocationListActivity
 import me.niccorder.phunware.weather.WeatherModule

@@ -1,33 +1,50 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.0"
-
+    compileSdkVersion rootProject.compile_sdk
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 29
+        minSdkVersion rootProject.min_sdk
+        targetSdkVersion rootProject.target_sdk
+
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        buildConfigField 'String', 'WEATHER_API_KEY', '"eb6c2089bde2e34372974beec082cff9"'
+        buildConfigField 'String', 'LOCATION_API_KEY', '"ZBt2tDluPkHjSCRHFzrBIrcLsFAIT4tSGXV9AhEpBlItYzaE8CgR4sCw8df1iIUY"'
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+        release { minifyEnabled false }
     }
 
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    api project(":util-injection")
+    api project(":data")
+    implementation project(":data-local")
+    implementation project(":data-remote")
+
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    api "com.google.dagger:dagger:$versions.dagger"
+
+    implementation "com.jakewharton.timber:timber:$versions.timber"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
