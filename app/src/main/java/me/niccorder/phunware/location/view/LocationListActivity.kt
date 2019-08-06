@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.jakewharton.rxbinding2.view.RxView
@@ -31,7 +30,7 @@ class LocationListActivity : DaggerAppCompatActivity(), LocationListView {
   @Inject lateinit var presenter: LocationListPresenter
   @Inject lateinit var gson: Gson
 
-  private lateinit var adapter: LocationAdapter
+  private lateinit var locationAdapter: LocationAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -49,18 +48,15 @@ class LocationListActivity : DaggerAppCompatActivity(), LocationListView {
   }
 
   private fun initRecycler() {
-    val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-    location_recycler.addItemDecoration(DividerItemDecoration(this, layoutManager.orientation))
-    location_recycler.layoutManager = layoutManager
-
-    adapter = LocationAdapter(
-      presenter::getLocation,
-      presenter::locationCount,
-      presenter::onLocationClicked
-    )
-    location_recycler.adapter = adapter
-
-    adapter.notifyDataSetChanged()
+    location_recycler.apply {
+      adapter = locationAdapter
+      addItemDecoration(
+        DividerItemDecoration(
+          this@LocationListActivity,
+          (layoutManager as LinearLayoutManager).orientation
+        )
+      )
+    }
   }
 
   override fun showAddLocationInput(show: Boolean) {
@@ -68,11 +64,11 @@ class LocationListActivity : DaggerAppCompatActivity(), LocationListView {
   }
 
   override fun notifyLocationAdded(position: Int) {
-    adapter.notifyItemInserted(position)
+    locationAdapter.notifyItemInserted(position)
   }
 
   override fun refreshLocations() {
-    adapter.notifyDataSetChanged()
+    locationAdapter.notifyDataSetChanged()
   }
 
   override fun showWeather(location: Location) {
