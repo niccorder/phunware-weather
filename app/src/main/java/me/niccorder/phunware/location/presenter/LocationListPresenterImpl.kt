@@ -19,13 +19,13 @@ class LocationListPresenterImpl @Inject constructor(
 ) : LocationListPresenter {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
-  private val locations: MutableList<Location> = mutableListOf()
+  private val locations: MutableList<me.niccorder.phunware.model.Location> = mutableListOf()
 
   override fun destroy() {
     disposables.clear()
   }
 
-  override fun getLocation(position: Int): Location = locations[position]
+  override fun getLocation(position: Int): me.niccorder.phunware.model.Location = locations[position]
 
   override fun locationCount(): Int = locations.size
 
@@ -41,7 +41,7 @@ class LocationListPresenterImpl @Inject constructor(
     )
   }
 
-  internal fun onLoadLocationsSuccess(locations: MutableList<Location>) {
+  internal fun onLoadLocationsSuccess(locations: MutableList<me.niccorder.phunware.model.Location>) {
     Timber.d("onLoadLocationsSuccess()")
 
     if (this.locations.isEmpty()) {
@@ -61,7 +61,7 @@ class LocationListPresenterImpl @Inject constructor(
     view.showAddLocationInput(true)
   }
 
-  override fun onLocationAdded(location: Location) {
+  override fun onLocationAdded(location: me.niccorder.phunware.model.Location) {
     Timber.d("onLocationAdded()")
 
     locations.add(location)

@@ -16,13 +16,13 @@ class WeatherPresenterImpl @Inject constructor(
   private val weatherRepository: WeatherRepository
 ) : WeatherPresenter {
 
-  private lateinit var location: Location
+  private lateinit var location: me.niccorder.phunware.model.Location
 
-  override fun setLocation(location: Location) {
+  override fun setLocation(location: me.niccorder.phunware.model.Location) {
     this.location = location
   }
 
-  override fun getLocation(): Location = location
+  override fun getLocation(): me.niccorder.phunware.model.Location = location
 
   override fun onLoadWeather() {
     weatherRepository.getForecast(location)

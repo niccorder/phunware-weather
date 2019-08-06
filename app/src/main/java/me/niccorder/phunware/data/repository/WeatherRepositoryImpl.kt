@@ -19,11 +19,11 @@ class WeatherRepositoryImpl @Inject constructor(
         private val memoryInfo: ActivityManager.MemoryInfo
 ) : WeatherRepository {
 
-    private val forecastCache: LruCache<String, AsyncSubject<Forecast>> = LruCache(
+    private val forecastCache: LruCache<String, AsyncSubject<me.niccorder.phunware.model.Forecast>> = LruCache(
             ((memoryInfo.availMem / 0x100000L) / 100).toInt()       // 1% of Available memory
     )
 
-    override fun getForecast(location: Location): Observable<Forecast> {
+    override fun getForecast(location: me.niccorder.phunware.model.Location): Observable<me.niccorder.phunware.model.Forecast> {
         var forecastSubject = forecastCache.get(location.zipCode)
         if (forecastSubject == null) {
             forecastSubject = AsyncSubject.create()

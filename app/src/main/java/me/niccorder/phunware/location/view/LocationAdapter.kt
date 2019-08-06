@@ -34,10 +34,10 @@ class LocationHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
  * @see DispatchingRecyclerAdapter
  */
 class LocationAdapter(
-  positionToItemMapper: (position: Int) -> Location,
+  positionToItemMapper: (position: Int) -> me.niccorder.phunware.model.Location,
   countFun: () -> Int,
   private val onLocationClick: (position: Int) -> Unit
-) : DispatchingRecyclerAdapter<Location, LocationHolder>(
+) : DispatchingRecyclerAdapter<me.niccorder.phunware.model.Location, LocationHolder>(
   positionToItemMapper,
   countFun
 ) {

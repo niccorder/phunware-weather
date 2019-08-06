@@ -22,30 +22,30 @@ class LocationRepositoryImpl @Inject constructor(
         private val locationApi: LocationApi
 ) : LocationRepository {
 
-    private fun getStartingLocations(): Flowable<MutableList<Location>> = Flowable.just(
+    private fun getStartingLocations(): Flowable<MutableList<me.niccorder.phunware.model.Location>> = Flowable.just(
             mutableListOf(
-                    Location(
-                            "91773",
-                            "San Dimas",
-                            34.110183,
-                            -117.810436
-                    ),
-                    Location(
-                            "90401",
-                            "Santa Monica",
-                            34.013639,
-                            -118.493974
-                    ),
-                    Location(
-                            "10005",
-                            "New York",
-                            40.706015,
-                            -74.008959
-                    )
+                me.niccorder.phunware.model.Location(
+                    "91773",
+                    "San Dimas",
+                    34.110183,
+                    -117.810436
+                ),
+                me.niccorder.phunware.model.Location(
+                    "90401",
+                    "Santa Monica",
+                    34.013639,
+                    -118.493974
+                ),
+                me.niccorder.phunware.model.Location(
+                    "10005",
+                    "New York",
+                    40.706015,
+                    -74.008959
+                )
             )
     ).doOnNext { it.forEach { locationDao.insertLocation(it) } }.subscribeOn(Schedulers.io())
 
-    override fun getLocations(): Flowable<MutableList<Location>> = locationDao.getLocations()
+    override fun getLocations(): Flowable<MutableList<me.niccorder.phunware.model.Location>> = locationDao.getLocations()
             .map { it.toMutableList() }
             .flatMap {
                 if (it.isEmpty()) {
@@ -55,13 +55,13 @@ class LocationRepositoryImpl @Inject constructor(
             }
             .subscribeOn(Schedulers.io())
 
-    override fun addLocation(location: Location): Single<Location> = Single.create<Location> {
+    override fun addLocation(location: me.niccorder.phunware.model.Location): Single<me.niccorder.phunware.model.Location> = Single.create<me.niccorder.phunware.model.Location> {
         locationDao.insertLocation(location)
         it.onSuccess(location)
     }
 
-    override fun getLocation(zipCode: String): Flowable<Location> = Flowable.zip(
-            locationApi.getLocationInfo(zipCode).onErrorReturn { Location.EMPTY },
+    override fun getLocation(zipCode: String): Flowable<me.niccorder.phunware.model.Location> = Flowable.zip(
+            locationApi.getLocationInfo(zipCode).onErrorReturn { me.niccorder.phunware.model.Location.EMPTY },
             Flowable.create<Address>(
                     {
                         try {
@@ -72,18 +72,18 @@ class LocationRepositoryImpl @Inject constructor(
                     },
                     BackpressureStrategy.LATEST
             ).map {
-                Location(
-                        zipCode,
-                        it.featureName,
-                        it.latitude,
-                        it.longitude
+                me.niccorder.phunware.model.Location(
+                    zipCode,
+                    it.featureName,
+                    it.latitude,
+                    it.longitude
                 )
-            }.onErrorReturn { Location.EMPTY },
-            BiFunction { remote: Location, local: Location ->
+            }.onErrorReturn { me.niccorder.phunware.model.Location.EMPTY },
+            BiFunction { remote: me.niccorder.phunware.model.Location, local: me.niccorder.phunware.model.Location ->
                 Timber.e(remote.toString())
                 Timber.e(local.toString())
                 local.copy(city = remote.city)
             })
-            .doOnNext { if (Location.EMPTY == it) throw IOException() }
+            .doOnNext { if (me.niccorder.phunware.model.Location.EMPTY == it) throw IOException() }
             .subscribeOn(Schedulers.io())
 }

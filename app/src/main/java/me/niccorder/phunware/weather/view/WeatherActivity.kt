@@ -39,19 +39,19 @@ class WeatherActivity : DaggerAppCompatActivity(), WeatherView {
     super.onSaveInstanceState(outState)
 
     outState.putString(
-      Location.KEY_LOCATION,
+      me.niccorder.phunware.model.Location.KEY_LOCATION,
       gson.toJson(presenter.location)
     )
   }
 
-  private fun getLocation(savedInstanceState: Bundle?): Location = when {
+  private fun getLocation(savedInstanceState: Bundle?): me.niccorder.phunware.model.Location = when {
     savedInstanceState != null -> gson.fromJson(
-      savedInstanceState.getString(Location.KEY_LOCATION),
-      Location::class.java
+      savedInstanceState.getString(me.niccorder.phunware.model.Location.KEY_LOCATION),
+      me.niccorder.phunware.model.Location::class.java
     )
     intent != null -> gson.fromJson(
-      intent.getStringExtra(Location.KEY_LOCATION),
-      Location::class.java
+      intent.getStringExtra(me.niccorder.phunware.model.Location.KEY_LOCATION),
+      me.niccorder.phunware.model.Location::class.java
     )
     else -> throw IllegalStateException("You must provide a location.")
   }

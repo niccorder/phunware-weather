@@ -20,5 +20,5 @@ interface LocationApi {
     @GET("/rest/${BuildConfig.LOCATION_API_KEY}/info.json/{zip}/degrees")
     fun getLocationInfo(
             @Path("zip") zipCode: String
-    ): Flowable<Location>
+    ): Flowable<me.niccorder.phunware.model.Location>
 }

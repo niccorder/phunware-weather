@@ -18,5 +18,5 @@ interface WeatherApi {
     fun getForcast(
             @Path("latitude") latitude: Double,
             @Path("longitude") longitude: Double
-    ): Observable<Forecast>
+    ): Observable<me.niccorder.phunware.model.Forecast>
 }
