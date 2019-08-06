@@ -4,16 +4,14 @@ import android.app.ActivityManager
 import android.util.LruCache
 import io.reactivex.Observable
 import io.reactivex.subjects.AsyncSubject
-import me.niccorder.phunware.model.Forecast
-import me.niccorder.phunware.model.Location
 import me.niccorder.phunware.data.remote.api.WeatherApi
-import me.niccorder.phunware.internal.AppScope
+import me.niccorder.scopes.AppScope
 import javax.inject.Inject
 
 /**
  * @see WeatherRepository
  */
-@AppScope
+@me.niccorder.scopes.AppScope
 class WeatherRepositoryImpl @Inject constructor(
         private val weatherApi: WeatherApi,
         private val memoryInfo: ActivityManager.MemoryInfo

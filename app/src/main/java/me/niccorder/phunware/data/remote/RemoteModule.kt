@@ -10,7 +10,7 @@ import me.niccorder.phunware.data.remote.api.LocationApi
 import me.niccorder.phunware.data.remote.api.WeatherApi
 import me.niccorder.phunware.data.remote.http.CacheAllInterceptor
 import me.niccorder.phunware.data.remote.http.LoggingInterceptor
-import me.niccorder.phunware.internal.AppScope
+import me.niccorder.scopes.AppScope
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.CallAdapter
@@ -22,36 +22,36 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class RemoteModule {
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun provideGson(): Gson = Gson()
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun provideNetworkCache(context: Context): Cache = Cache(
         context.cacheDir,
         10 * 1024 * 1024
     )
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun provideCallAdapterFactory(): CallAdapter.Factory =
         RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun provideCallConverterFactory(
         gson: Gson
     ): Converter.Factory = GsonConverterFactory.create(gson)
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun providesOkhttpClientBuilder(): OkHttpClient.Builder = OkHttpClient.Builder().apply {
         addInterceptor(LoggingInterceptor)
         retryOnConnectionFailure(true)
     }
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun provideRetrofitBuilder(
         converterFactory: Converter.Factory,
@@ -62,7 +62,7 @@ class RemoteModule {
         validateEagerly(BuildConfig.DEBUG)
     }
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun locationApi(
         okhttpBuilder: OkHttpClient.Builder,
@@ -74,7 +74,7 @@ class RemoteModule {
         )
     }.build().create(LocationApi::class.java)
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun weatherApi(
         okhttpBuilder: OkHttpClient.Builder,

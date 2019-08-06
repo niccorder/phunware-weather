@@ -2,18 +2,17 @@ package me.niccorder.phunware.data.repository
 
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import me.niccorder.phunware.internal.AppScope
+import me.niccorder.scopes.AppScope
 
 @Module
 abstract class RepositoryModule {
 
     @Binds
-    @AppScope
+    @me.niccorder.scopes.AppScope
     abstract fun locationRepository(impl: LocationRepositoryImpl): LocationRepository
 
     @Binds
-    @AppScope
+    @me.niccorder.scopes.AppScope
     abstract fun weatherRepository(impl: WeatherRepositoryImpl): WeatherRepository
 
 }

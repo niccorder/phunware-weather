@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import me.niccorder.phunware.internal.AppScope
+import me.niccorder.scopes.AppScope
 
 @Module
 class LocalModule {
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun provideDatabase(context: Context): AppDatabase = Room.databaseBuilder(
         context,
@@ -17,7 +17,7 @@ class LocalModule {
         "app-db"
     ).build()
 
-    @AppScope
+    @me.niccorder.scopes.AppScope
     @Provides
     fun locationDao(appDatabase: AppDatabase): LocationDao = appDatabase.locationDao()
 }

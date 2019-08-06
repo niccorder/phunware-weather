@@ -14,8 +14,8 @@ import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import me.niccorder.phunware.data.DataModule
-import me.niccorder.phunware.internal.ActivityScope
-import me.niccorder.phunware.internal.AppScope
+import me.niccorder.scopes.ActivityScope
+import me.niccorder.scopes.AppScope
 import me.niccorder.phunware.location.LocationModule
 import me.niccorder.phunware.location.view.LocationListActivity
 import me.niccorder.phunware.weather.WeatherModule
@@ -24,7 +24,7 @@ import me.niccorder.phunware.weather.view.WeatherActivity
 @Module
 abstract class AppBindingModule {
     @Binds
-    @AppScope
+    @me.niccorder.scopes.AppScope
     abstract fun appContext(app: Application): Context
 }
 
@@ -32,7 +32,7 @@ abstract class AppBindingModule {
 class AppModule {
 
     @Provides
-    @AppScope
+    @me.niccorder.scopes.AppScope
     fun activityManager(
         context: Context
     ): ActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
@@ -45,29 +45,29 @@ class AppModule {
     }
 
     @Provides
-    @AppScope
+    @me.niccorder.scopes.AppScope
     fun locationManager(
         context: Context
     ): LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     @Provides
-    @AppScope
+    @me.niccorder.scopes.AppScope
     fun geocoder(context: Context): Geocoder = Geocoder(context)
 }
 
 @Module
 abstract class PhunwareActivityInjectors {
 
-    @ActivityScope
+    @me.niccorder.scopes.ActivityScope
     @ContributesAndroidInjector(modules = [LocationModule::class])
     internal abstract fun homeActivity(): LocationListActivity
 
-    @ActivityScope
+    @me.niccorder.scopes.ActivityScope
     @ContributesAndroidInjector(modules = [WeatherModule::class])
     internal abstract fun weatherActivity(): WeatherActivity
 }
 
-@AppScope
+@me.niccorder.scopes.AppScope
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,

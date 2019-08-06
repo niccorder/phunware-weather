@@ -2,7 +2,7 @@ package me.niccorder.phunware.weather
 
 import dagger.Binds
 import dagger.Module
-import me.niccorder.phunware.internal.ActivityScope
+import me.niccorder.scopes.ActivityScope
 import me.niccorder.phunware.weather.presenter.WeatherPresenter
 import me.niccorder.phunware.weather.presenter.WeatherPresenterImpl
 import me.niccorder.phunware.weather.view.WeatherActivity
@@ -12,12 +12,12 @@ import me.niccorder.phunware.weather.view.WeatherView
 abstract class WeatherModule {
 
     @Binds
-    @ActivityScope
+    @me.niccorder.scopes.ActivityScope
     abstract fun weatherPresenter(
             weatherPresenterImpl: WeatherPresenterImpl
     ): WeatherPresenter
 
     @Binds
-    @ActivityScope
+    @me.niccorder.scopes.ActivityScope
     abstract fun weatherView(weatherActivity: WeatherActivity): WeatherView
 }

@@ -67,6 +67,7 @@ dependencies {
   def versions = rootProject.versions
 
   implementation project(":model")
+  implementation project(':util-inject')
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 

@@ -8,14 +8,13 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import me.niccorder.phunware.data.local.LocationDao
-import me.niccorder.phunware.model.Location
 import me.niccorder.phunware.data.remote.api.LocationApi
-import me.niccorder.phunware.internal.AppScope
+import me.niccorder.scopes.AppScope
 import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
-@AppScope
+@me.niccorder.scopes.AppScope
 class LocationRepositoryImpl @Inject constructor(
         private val geocoder: Geocoder,
         private val locationDao: LocationDao,

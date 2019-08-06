@@ -1,0 +1,11 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    def versions = rootProject.versions
+
+    api "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+    api "javax.inject:javax.inject:$versions.javax_inject"
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
