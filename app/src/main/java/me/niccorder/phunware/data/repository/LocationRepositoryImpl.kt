@@ -8,7 +8,9 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import me.niccorder.phunware.BuildConfig
+import me.niccorder.phunware.data.LocationRepository
 import me.niccorder.phunware.data.local.LocationDao
+import me.niccorder.phunware.data.remote.LocationApi
 import me.niccorder.phunware.model.Location
 import me.niccorder.scopes.AppScope
 import timber.log.Timber
@@ -19,12 +21,12 @@ import javax.inject.Inject
 class LocationRepositoryImpl @Inject constructor(
   private val geocoder: Geocoder,
   private val locationDao: LocationDao,
-  private val locationApi: me.niccorder.phunware.data.remote.LocationApi
+  private val locationApi: LocationApi
 ) : LocationRepository {
 
-  private fun getStartingLocations(): Flowable<MutableList<Location>> =
+  private fun getStartingLocations(): Flowable<List<Location>> =
     Flowable.just(
-      mutableListOf(
+      listOf(
         Location(
           "91773",
           "San Dimas",
@@ -46,16 +48,14 @@ class LocationRepositoryImpl @Inject constructor(
       )
     ).doOnNext { it.forEach { locationDao.insertLocation(it) } }.subscribeOn(Schedulers.io())
 
-  override fun getLocations(): Flowable<MutableList<Location>> =
-    locationDao.getLocations()
-      .map { it.toMutableList() }
-      .flatMap {
-        if (it.isEmpty()) {
-          return@flatMap getStartingLocations()
-        }
-        return@flatMap Flowable.just(it)
+  override val locations: Flowable<List<Location>> = locationDao.getLocations()
+    .flatMap { locations ->
+      when {
+        locations.isEmpty() -> return@flatMap getStartingLocations()
+        else -> return@flatMap Flowable.just(locations)
       }
-      .subscribeOn(Schedulers.io())
+    }
+    .subscribeOn(Schedulers.io())
 
   override fun addLocation(location: Location): Single<Location> =
     Single.create {

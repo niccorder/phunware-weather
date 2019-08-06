@@ -5,6 +5,7 @@ import android.util.LruCache
 import io.reactivex.Observable
 import io.reactivex.subjects.AsyncSubject
 import me.niccorder.phunware.BuildConfig
+import me.niccorder.phunware.data.WeatherRepository
 import me.niccorder.phunware.data.remote.WeatherApi
 import me.niccorder.phunware.model.Forecast
 import me.niccorder.phunware.model.Location

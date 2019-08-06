@@ -1,8 +1,7 @@
 package me.niccorder.phunware.weather.presenter
 
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import me.niccorder.phunware.data.repository.WeatherRepository
+import me.niccorder.phunware.data.WeatherRepository
 import me.niccorder.phunware.model.Location
 import me.niccorder.phunware.weather.view.WeatherView
 import me.niccorder.scopes.ActivityScope
@@ -14,7 +13,7 @@ import javax.inject.Inject
 @ActivityScope
 class WeatherPresenterImpl @Inject constructor(
   val view: WeatherView,
-  private val weatherRepository: WeatherRepository
+  private val weatherRepository: me.niccorder.phunware.data.WeatherRepository
 ) : WeatherPresenter {
 
   private lateinit var location: Location
