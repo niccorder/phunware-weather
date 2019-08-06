@@ -80,7 +80,7 @@ abstract class GeneratedActivityInjectors {
         RepositoryModule::class
     ]
 )
-interface AppComponent : AndroidInjector<PhunwareApplication> {
+interface AppComponent : AndroidInjector<MainApp> {
 
     @Component.Factory
     interface Factory {

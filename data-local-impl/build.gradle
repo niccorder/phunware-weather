@@ -35,6 +35,9 @@ dependencies {
     api project(":util-injection")
     api project(":data-local")
 
+    kapt "androidx.room:room-compiler:$versions.room"
+    api "androidx.room:room-runtime:$versions.room"
+
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"
     api "com.google.dagger:dagger:$versions.dagger"
 

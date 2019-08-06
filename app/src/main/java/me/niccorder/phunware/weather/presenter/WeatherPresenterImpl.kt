@@ -1,7 +1,7 @@
 package me.niccorder.phunware.weather.presenter
 
 import io.reactivex.android.schedulers.AndroidSchedulers
-import me.niccorder.phunware.data.WeatherRepository
+import io.reactivex.rxkotlin.subscribeBy
 import me.niccorder.phunware.model.Location
 import me.niccorder.phunware.weather.view.WeatherView
 import me.niccorder.scopes.ActivityScope
