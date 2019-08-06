@@ -1,4 +1,4 @@
-package me.niccorder.phunware.location.data
+package me.niccorder.phunware.data.repository
 
 import android.location.Address
 import android.location.Geocoder
@@ -8,7 +8,7 @@ import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import me.niccorder.phunware.data.local.LocationDao
-import me.niccorder.phunware.data.model.Location
+import me.niccorder.phunware.model.Location
 import me.niccorder.phunware.data.remote.api.LocationApi
 import me.niccorder.phunware.internal.AppScope
 import timber.log.Timber

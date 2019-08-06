@@ -1,7 +1,8 @@
 package me.niccorder.phunware.weather.view;
 
 
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
+
 import io.reactivex.annotations.NonNull;
 
 /**

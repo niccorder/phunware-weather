@@ -1,7 +1,7 @@
 package me.niccorder.phunware.weather.presenter;
 
 import io.reactivex.annotations.NonNull;
-import me.niccorder.phunware.data.model.Location;
+import me.niccorder.phunware.model.Location;
 
 /**
  * Presents the weather information for a given {@link Location}.

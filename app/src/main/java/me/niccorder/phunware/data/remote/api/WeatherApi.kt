@@ -2,7 +2,7 @@ package me.niccorder.phunware.data.remote.api
 
 import io.reactivex.Observable
 import me.niccorder.phunware.BuildConfig
-import me.niccorder.phunware.data.model.Forecast
+import me.niccorder.phunware.model.Forecast
 import retrofit2.http.GET
 import retrofit2.http.Path
 

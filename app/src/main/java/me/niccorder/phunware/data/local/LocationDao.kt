@@ -1,11 +1,11 @@
 package me.niccorder.phunware.data.local
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import io.reactivex.Flowable
-import me.niccorder.phunware.data.model.Location
+import me.niccorder.phunware.model.Location
 
 /**
  * The definition for our Data Access Object (DAO) which generates the CRUD code for mutating a
@@ -26,5 +26,5 @@ interface LocationDao {
      * @return all cities stored in the local database.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertLocation(location: Location): Unit
+    fun insertLocation(location: Location)
 }

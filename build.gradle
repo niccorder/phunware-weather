@@ -1,20 +1,114 @@
 buildscript {
+  ext {
+    min_sdk = 21
+    target_sdk = 28
+    compile_sdk = 28
+
+    versions = [:]
+    versions.kotlin = "1.3.41"
+    versions.android_gradle_plugin = '3.4.2'
+
+    versions.support = "1.1.0-beta01"
+    versions.support_ktx = "1.1.0-beta01"
+    versions.appcompat = "1.1.0-alpha05"
+    versions.browser = "1.0.0"
+    versions.constraint_layout = "2.0.0-beta1"
+    versions.cardview = "1.0.0"
+    versions.emoji = "1.0.0"
+    versions.fragment = "1.1.0-alpha09"
+    versions.exifinterface = "1.1.0-alpha01"
+    versions.material = "1.1.0-alpha06"
+    versions.recycler = "1.1.0-alpha05"
+    versions.multidex = "2.0.1"
+
+    versions.architecture_core = "2.1.0-beta01"
+    versions.lifecycle = "2.0.0"
+    versions.paging = "2.1.0"
+    versions.room = "2.1.0-beta01"
+
+    versions.dagger = "2.22.1"
+    versions.rxjava2 = "2.2.8"
+    versions.rx_android = "2.1.1"
+    versions.rx_kotlin = "2.3.0"
+    versions.rx_bindings = "2.2.0"
+    versions.rx_streams = "1.0.0"
+
+    versions.javax_inject = "1"
+    versions.javax_jsr250 = "1.0"
+    versions.koptional = "1.6.0"
+
+    versions.firebase_core = "16.0.9"
+    versions.firebase_messaging = "18.0.0"
+    versions.firebase_dynamic_links = "16.1.0"
+    versions.firebase_config = "17.0.0"
+    versions.firebase_performance = "17.0.0"
+    versions.crashlytics = "2.10.0"
+
+    versions.threetenabp = "1.0.5"
+    versions.threetenbp = "1.3.6"
+    versions.gson = "2.8.5"
+    versions.retrofit = "2.3.0"
+    versions.okhttp = "3.12.0"
+    versions.graphql = "1.0.1-SNAPSHOT"
+    versions.socketio = "1.0.0"
+    versions.cookie_jar = "v1.0.1"
+
+    versions.soloader = "0.2.0"
+    versions.webrtc = "1.0.24465@aar"
+
+    versions.arrow = "0.7.3"
+    versions.guava = "27.0.1-android"
+    versions.glide = "4.8.0"
+    versions.timber = "4.7.0"
+    versions.krop = "0.44"
+    versions.photo_view = "2.2.0"
+    versions.phone_number_util = "8.9.14"
+
+    versions.mockwebserver = "3.8.1"
+    versions.apache_commons = "2.5"
+    versions.dexmaker = "2.2.0"
+
+    // Debug dependencies
+    versions.stetho = "1.5.0"
+
+    // Testing dependencies
+    versions.junit = "4.12"
+    versions.truth = "0.42"
+    versions.mockito = "2.7.19"
+    versions.mockito_all = "1.10.19"
+    versions.espresso = "3.0.1"
+    versions.hamcrest = "1.3"
+    versions.atsl_runner = "1.1.0"
+    versions.atsl_espresso = "3.1.1"
+  }
+
   repositories {
     google()
     jcenter()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://jitpack.io/' }
   }
+
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.0.0-beta6'
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.4-3"
+    classpath "io.fabric.tools:gradle:1.29.0"
+
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+    classpath "com.apollographql.apollo:apollo-gradle-plugin:$versions.graphql"
+
+    classpath "com.android.tools.build:gradle:$versions.android_gradle_plugin"
   }
 }
 
-task clean(type: Delete) {
-  delete rootProject.buildDir
-}
+allprojects {
+  repositories {
+    google()
+    jcenter()
 
-task wrapper(type: Wrapper) {
-  gradleVersion '4.1-rc-1'
-  distributionUrl 'https://services.gradle.org/distributions/gradle-4.1-all.zip'
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'http://www.idescout.com/maven/repo/' }
+    maven { url 'https://jitpack.io/' }
+  }
 }

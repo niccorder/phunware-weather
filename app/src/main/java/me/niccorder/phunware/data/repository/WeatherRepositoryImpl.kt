@@ -1,11 +1,11 @@
-package me.niccorder.phunware.weather.data
+package me.niccorder.phunware.data.repository
 
 import android.app.ActivityManager
 import android.util.LruCache
 import io.reactivex.Observable
 import io.reactivex.subjects.AsyncSubject
-import me.niccorder.phunware.data.model.Forecast
-import me.niccorder.phunware.data.model.Location
+import me.niccorder.phunware.model.Forecast
+import me.niccorder.phunware.model.Location
 import me.niccorder.phunware.data.remote.api.WeatherApi
 import me.niccorder.phunware.internal.AppScope
 import javax.inject.Inject

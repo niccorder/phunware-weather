@@ -1,12 +1,13 @@
-package me.niccorder.phunware.location.list.presenter;
+package me.niccorder.phunware.location.presenter;
 
 import io.reactivex.annotations.NonNull;
-import me.niccorder.phunware.data.model.Location;
+import me.niccorder.phunware.model.Location;
+import me.niccorder.phunware.location.view.LocationListView;
 
 /**
  * Presenter for displaying a list of {@link Location} models.
  *
- * @see me.niccorder.phunware.location.list.view.LocationListView
+ * @see LocationListView
  */
 public interface LocationListPresenter {
 

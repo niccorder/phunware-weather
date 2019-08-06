@@ -1,7 +1,5 @@
 package me.niccorder.phunware.internal
 
-import android.content.ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW
-import dagger.android.ReleaseReferencesAt
 import javax.inject.Scope
 
 /**
@@ -9,19 +7,12 @@ import javax.inject.Scope
  */
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
-@ReleaseReferencesAt(value = TRIM_MEMORY_RUNNING_LOW)
 annotation class AppScope
 
 /**
- * A Dagger2 scope for objects used in the home activity.
+ * Scope of dependencies that should live the entirety of the activity. Objects which are dependent
+ * on the context, should always live this scope, or below it in the dependency graph.
  */
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
-annotation class LocationListScope
-
-/**
- * A Dagger2 scope for objects used for displaying weather for a location.
- */
-@Scope
-@Retention(AnnotationRetention.RUNTIME)
-annotation class WeatherScope
+annotation class ActivityScope

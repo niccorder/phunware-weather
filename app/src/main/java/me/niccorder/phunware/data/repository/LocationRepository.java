@@ -1,10 +1,10 @@
-package me.niccorder.phunware.location.data;
+package me.niccorder.phunware.data.repository;
 
 import java.util.List;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;
-import me.niccorder.phunware.data.model.Location;
+import me.niccorder.phunware.model.Location;
 
 /**
  * Our data-layer contract which handles logic for displaying/retrieving information relating to a

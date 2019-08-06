@@ -16,7 +16,7 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity android:name=".location.list.view.LocationListActivity">
+    <activity android:name=".location.view.LocationListActivity">
 
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
     <activity
       android:name=".weather.view.WeatherActivity"
       android:label="@string/activity_weather_label"
-      android:parentActivityName=".location.list.view.LocationListActivity" />
+      android:parentActivityName=".location.view.LocationListActivity" />
   </application>
 
 </manifest>

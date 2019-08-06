@@ -1,6 +1,6 @@
 package me.niccorder.phunware.internal.widget.recycler
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 open abstract class DispatchingRecyclerAdapter<T, VH : RecyclerView.ViewHolder>(
         internal val positionToItemMapper: (position: Int) -> T,

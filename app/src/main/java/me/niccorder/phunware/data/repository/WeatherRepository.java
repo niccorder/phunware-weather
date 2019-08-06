@@ -1,9 +1,9 @@
-package me.niccorder.phunware.weather.data;
+package me.niccorder.phunware.data.repository;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
-import me.niccorder.phunware.data.model.Forecast;
-import me.niccorder.phunware.data.model.Location;
+import me.niccorder.phunware.model.Forecast;
+import me.niccorder.phunware.model.Location;
 
 /**
  * A repository contract for interacting with all information for weather.

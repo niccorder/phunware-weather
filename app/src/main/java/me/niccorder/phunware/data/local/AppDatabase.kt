@@ -1,8 +1,8 @@
 package me.niccorder.phunware.data.local
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
-import me.niccorder.phunware.data.model.Location
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import me.niccorder.phunware.model.Location
 
 /**
  * This is the definition of the [RoomDatabase] which generates all boilerplate code for our app's

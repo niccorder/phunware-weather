@@ -2,7 +2,7 @@ package me.niccorder.phunware.data.remote.api
 
 import io.reactivex.Flowable
 import me.niccorder.phunware.BuildConfig
-import me.niccorder.phunware.data.model.Location
+import me.niccorder.phunware.model.Location
 import retrofit2.http.GET
 import retrofit2.http.Path
 

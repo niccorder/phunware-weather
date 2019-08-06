@@ -1,18 +1,17 @@
-apply from: "$rootDir/config.gradle"
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdkVersion project.ext.compileSdk
-  buildToolsVersion project.ext.buildToolsVersion
+  compileSdkVersion rootProject.compile_sdk
 
   defaultConfig {
-    applicationId project.ext.basePackage
-    minSdkVersion project.ext.minSdk
-    targetSdkVersion project.ext.targetSdk
-    versionCode project.ext.versionCode
-    versionName project.ext.versionName
+    applicationId 'me.niccorder.phunware'
+    minSdkVersion rootProject.min_sdk
+    targetSdkVersion rootProject.target_sdk
+    versionCode 1
+    versionName "1.0.0-SNAPSHOT"
 
     vectorDrawables.useSupportLibrary = true
 
@@ -22,7 +21,7 @@ android {
     buildConfigField 'String', 'LOCATION_API_KEY', '"ZBt2tDluPkHjSCRHFzrBIrcLsFAIT4tSGXV9AhEpBlItYzaE8CgR4sCw8df1iIUY"'
 
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     javaCompileOptions {
       annotationProcessorOptions {
@@ -65,51 +64,75 @@ android {
 }
 
 dependencies {
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:${project.ext.kotlin_version}"
+  def versions = rootProject.versions
 
-  implementation project.ext.appcompatv7
-  implementation project.ext.recyclerview
-  implementation project.ext.design
-  implementation project.ext.cardview
-  implementation project.ext.constraintLayout
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 
-  kapt project.ext.lifecycleProcessor
-  implementation project.ext.lifecycle
-  implementation project.ext.lifecycleExtensions
+  // Android support libraries.
+  implementation "androidx.annotation:annotation:$versions.support"
+  implementation "androidx.appcompat:appcompat:$versions.appcompat"
+  implementation "androidx.collection:collection-ktx:$versions.support"
+  implementation "androidx.cardview:cardview:$versions.cardview"
+  implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+  implementation "androidx.core:core-ktx:$versions.support_ktx"
+  implementation "androidx.fragment:fragment:$versions.fragment"
+  implementation "androidx.fragment:fragment-ktx:$versions.fragment"
+  implementation "androidx.emoji:emoji-appcompat:$versions.emoji"
+  implementation "androidx.emoji:emoji-bundled:$versions.emoji"
+  implementation "androidx.exifinterface:exifinterface:$versions.exifinterface"
+  implementation "androidx.recyclerview:recyclerview:$versions.recycler"
+  implementation "com.google.android.material:material:$versions.material"
 
-  kapt project.ext.room_processor
-  implementation project.ext.room
-  implementation project.ext.room_rxjava
+  // Android Arch. Core
+  implementation "androidx.arch.core:core-runtime:$versions.architecture_core"
+  implementation "androidx.arch.core:core-common:$versions.architecture_core"
 
-  implementation project.ext.knotterknife
-  implementation project.ext.timber
-  implementation project.ext.glide
+  kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+  implementation "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
+  implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+  implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+  implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
 
-  compileOnly project.ext.jsr
-  kapt project.ext.daggerProcessor
-  kapt project.ext.daggerAndroidProcessor
-  implementation project.ext.dagger
-  implementation project.ext.daggerAndroidSupport
+  kapt "androidx.room:room-compiler:$versions.room"
+  implementation "androidx.room:room-runtime:$versions.room"
+  implementation "androidx.room:room-common:$versions.room"
+  implementation "androidx.room:room-rxjava2:$versions.room"
 
-  implementation project.ext.rxjava
-  implementation project.ext.rxandroid
-  implementation project.ext.rxbinding
-  implementation project.ext.rxbinding_supportv4
-  implementation project.ext.rxbinding_appcompatv7
-  implementation project.ext.rxbinding_design
-  implementation project.ext.rxbinding_recycler
+  implementation "com.jakewharton.timber:timber:$versions.timber"
 
-  implementation project.ext.okhttp
-  implementation project.ext.retrofit
-  implementation project.ext.retrofit_rxjava
-  implementation project.ext.retrofit_gson
+  kapt "com.github.bumptech.glide:compiler:$versions.glide"
+  implementation "com.github.bumptech.glide:glide:$versions.glide"
 
-  testImplementation project.ext.junit
-  testImplementation project.ext.mockito
-  testImplementation project.ext.truth
-  implementation 'com.afollestad.material-dialogs:core:0.9.4.7'
+  kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+  kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+  implementation "com.google.dagger:dagger:$versions.dagger"
+  implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+  compileOnly "javax.annotation:jsr250-api:1.0"
 
-  androidTestImplementation(project.ext.espresso, {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
+  implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+  implementation "io.reactivex.rxjava2:rxkotlin:$versions.rx_kotlin"
+  implementation "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+  implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$versions.rx_bindings"
+
+  implementation "com.google.code.gson:gson:$versions.gson"
+
+  implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
+  implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+  implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+  implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+
+  testImplementation "junit:junit:$versions.junit"
+  testImplementation "com.google.truth:truth:$versions.truth"
+  testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+  testImplementation "org.mockito:mockito-core:$versions.mockito"
+  testImplementation "org.mockito:mockito-all:$versions.mockito_all"
+
+  testImplementation "androidx.test:core:$versions.support"
+  testImplementation "androidx.arch.core:core-testing:$versions.architecture_core"
+
+  androidTestImplementation "androidx.test:core:$versions.atsl_runner"
+  androidTestImplementation "androidx.test:runner:$versions.atsl_runner"
+  androidTestImplementation "androidx.arch.core:core-testing:$versions.architecture_core"
+  androidTestImplementation "androidx.test.espresso:espresso-core:$versions.atsl_espresso"
 }
