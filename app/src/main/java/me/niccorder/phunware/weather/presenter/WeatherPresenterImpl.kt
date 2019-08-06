@@ -1,39 +1,42 @@
 package me.niccorder.phunware.weather.presenter
 
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.subscribeBy
 import me.niccorder.phunware.data.repository.WeatherRepository
-import me.niccorder.scopes.ActivityScope
+import me.niccorder.phunware.model.Location
 import me.niccorder.phunware.weather.view.WeatherView
+import me.niccorder.scopes.ActivityScope
 import javax.inject.Inject
 
 /**
  * @see WeatherPresenter
  */
-@me.niccorder.scopes.ActivityScope
+@ActivityScope
 class WeatherPresenterImpl @Inject constructor(
   val view: WeatherView,
   private val weatherRepository: WeatherRepository
 ) : WeatherPresenter {
 
-  private lateinit var location: me.niccorder.phunware.model.Location
+  private lateinit var location: Location
 
-  override fun setLocation(location: me.niccorder.phunware.model.Location) {
+  override fun setLocation(location: Location) {
     this.location = location
   }
 
-  override fun getLocation(): me.niccorder.phunware.model.Location = location
+  override fun getLocation(): Location = location
 
   override fun onLoadWeather() {
     weatherRepository.getForecast(location)
       .observeOn(AndroidSchedulers.mainThread())
-      .subscribe({
-        if (it.current?.temperature != null)
-          view.setTemperature(it.current.temperature)
-        if (it.current?.summary != null)
-          view.setSummary(it.current.summary)
-        if (it.current?.humidity != null) {
-          view.setHumidity(it.current.humidity)
+      .subscribeBy(
+        onNext = { forecast ->
+        forecast.current?.let { data ->
+          data.temperature?.let(view::setTemperature)
+          data.summary?.let(view::setSummary)
+          data.humidity?.let(view::setHumidity)
         }
-      }, { view.showError(it) })
+      },
+        onError = { throwable -> view.showError(throwable) }
+      )
   }
 }

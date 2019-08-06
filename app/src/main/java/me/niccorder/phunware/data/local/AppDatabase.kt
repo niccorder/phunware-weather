@@ -12,7 +12,7 @@ import me.niccorder.phunware.model.Location
  * @see android.arch.persistence.room
  */
 @Database(
-        entities = arrayOf(me.niccorder.phunware.model.Location::class),
+        entities = [Location::class],
         version = 1
 )
 abstract class AppDatabase : RoomDatabase() {

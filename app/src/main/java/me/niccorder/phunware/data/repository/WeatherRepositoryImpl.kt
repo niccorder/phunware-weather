@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * @see WeatherRepository
  */
-@me.niccorder.scopes.AppScope
+@AppScope
 class WeatherRepositoryImpl @Inject constructor(
         private val weatherApi: WeatherApi,
         private val memoryInfo: ActivityManager.MemoryInfo

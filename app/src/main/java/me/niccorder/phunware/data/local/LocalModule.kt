@@ -9,7 +9,7 @@ import me.niccorder.scopes.AppScope
 @Module
 class LocalModule {
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun provideDatabase(context: Context): AppDatabase = Room.databaseBuilder(
         context,
@@ -17,7 +17,7 @@ class LocalModule {
         "app-db"
     ).build()
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun locationDao(appDatabase: AppDatabase): LocationDao = appDatabase.locationDao()
 }

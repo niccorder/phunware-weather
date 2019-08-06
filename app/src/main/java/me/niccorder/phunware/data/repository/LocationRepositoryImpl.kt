@@ -14,7 +14,7 @@ import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
-@me.niccorder.scopes.AppScope
+@AppScope
 class LocationRepositoryImpl @Inject constructor(
         private val geocoder: Geocoder,
         private val locationDao: LocationDao,

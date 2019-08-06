@@ -8,11 +8,11 @@ import me.niccorder.scopes.AppScope
 abstract class RepositoryModule {
 
     @Binds
-    @me.niccorder.scopes.AppScope
+    @AppScope
     abstract fun locationRepository(impl: LocationRepositoryImpl): LocationRepository
 
     @Binds
-    @me.niccorder.scopes.AppScope
+    @AppScope
     abstract fun weatherRepository(impl: WeatherRepositoryImpl): WeatherRepository
 
 }

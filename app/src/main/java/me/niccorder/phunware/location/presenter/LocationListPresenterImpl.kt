@@ -3,15 +3,15 @@ package me.niccorder.phunware.location.presenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import me.niccorder.phunware.data.repository.LocationRepository
-import me.niccorder.scopes.ActivityScope
 import me.niccorder.phunware.location.view.LocationListView
+import me.niccorder.scopes.ActivityScope
 import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * @see LocationListPresenter
  */
-@me.niccorder.scopes.ActivityScope
+@ActivityScope
 class LocationListPresenterImpl @Inject constructor(
   internal val view: LocationListView,
   private val locationRepository: LocationRepository

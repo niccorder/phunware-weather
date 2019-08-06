@@ -75,10 +75,10 @@ class LocationListActivity : DaggerAppCompatActivity(), LocationListView {
     adapter.notifyDataSetChanged()
   }
 
-  override fun showWeather(location: me.niccorder.phunware.model.Location) {
+  override fun showWeather(location: Location) {
     startActivity(
       Intent(this, WeatherActivity::class.java).putExtra(
-        me.niccorder.phunware.model.Location.KEY_LOCATION,
+        Location.KEY_LOCATION,
         gson.toJson(location)
       )
     )

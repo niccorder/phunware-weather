@@ -22,36 +22,36 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class RemoteModule {
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun provideGson(): Gson = Gson()
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun provideNetworkCache(context: Context): Cache = Cache(
         context.cacheDir,
         10 * 1024 * 1024
     )
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun provideCallAdapterFactory(): CallAdapter.Factory =
         RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun provideCallConverterFactory(
         gson: Gson
     ): Converter.Factory = GsonConverterFactory.create(gson)
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun providesOkhttpClientBuilder(): OkHttpClient.Builder = OkHttpClient.Builder().apply {
         addInterceptor(LoggingInterceptor)
         retryOnConnectionFailure(true)
     }
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun provideRetrofitBuilder(
         converterFactory: Converter.Factory,
@@ -62,7 +62,7 @@ class RemoteModule {
         validateEagerly(BuildConfig.DEBUG)
     }
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun locationApi(
         okhttpBuilder: OkHttpClient.Builder,
@@ -74,7 +74,7 @@ class RemoteModule {
         )
     }.build().create(LocationApi::class.java)
 
-    @me.niccorder.scopes.AppScope
+    @AppScope
     @Provides
     fun weatherApi(
         okhttpBuilder: OkHttpClient.Builder,

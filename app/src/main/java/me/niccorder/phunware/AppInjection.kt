@@ -14,17 +14,17 @@ import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import me.niccorder.phunware.data.DataModule
-import me.niccorder.scopes.ActivityScope
-import me.niccorder.scopes.AppScope
 import me.niccorder.phunware.location.LocationModule
 import me.niccorder.phunware.location.view.LocationListActivity
 import me.niccorder.phunware.weather.WeatherModule
 import me.niccorder.phunware.weather.view.WeatherActivity
+import me.niccorder.scopes.ActivityScope
+import me.niccorder.scopes.AppScope
 
 @Module
 abstract class AppBindingModule {
     @Binds
-    @me.niccorder.scopes.AppScope
+    @AppScope
     abstract fun appContext(app: Application): Context
 }
 
@@ -32,7 +32,7 @@ abstract class AppBindingModule {
 class AppModule {
 
     @Provides
-    @me.niccorder.scopes.AppScope
+    @AppScope
     fun activityManager(
         context: Context
     ): ActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
@@ -45,29 +45,29 @@ class AppModule {
     }
 
     @Provides
-    @me.niccorder.scopes.AppScope
+    @AppScope
     fun locationManager(
         context: Context
     ): LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     @Provides
-    @me.niccorder.scopes.AppScope
+    @AppScope
     fun geocoder(context: Context): Geocoder = Geocoder(context)
 }
 
 @Module
 abstract class PhunwareActivityInjectors {
 
-    @me.niccorder.scopes.ActivityScope
+    @ActivityScope
     @ContributesAndroidInjector(modules = [LocationModule::class])
     internal abstract fun homeActivity(): LocationListActivity
 
-    @me.niccorder.scopes.ActivityScope
+    @ActivityScope
     @ContributesAndroidInjector(modules = [WeatherModule::class])
     internal abstract fun weatherActivity(): WeatherActivity
 }
 
-@me.niccorder.scopes.AppScope
+@AppScope
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,

@@ -20,11 +20,11 @@ interface LocationDao {
      * @return all cities stored in the local database.
      */
     @Query("SELECT * FROM location")
-    fun getLocations(): Flowable<List<me.niccorder.phunware.model.Location>>
+    fun getLocations(): Flowable<List<Location>>
 
     /**
      * @return all cities stored in the local database.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertLocation(location: me.niccorder.phunware.model.Location)
+    fun insertLocation(location: Location)
 }
