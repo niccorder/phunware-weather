@@ -1,1 +1,1 @@
-include ':app', ':model', ':util-inject'
+include ':app', ':model', ':util-injection', ':data-remote'

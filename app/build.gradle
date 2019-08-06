@@ -66,8 +66,8 @@ android {
 dependencies {
   def versions = rootProject.versions
 
-  implementation project(":model")
-  implementation project(':util-inject')
+  implementation project(':data-remote')
+  implementation project(':util-injection')
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
 

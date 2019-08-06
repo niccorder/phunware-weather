@@ -6,8 +6,6 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
 import me.niccorder.phunware.BuildConfig
-import me.niccorder.phunware.data.remote.api.LocationApi
-import me.niccorder.phunware.data.remote.api.WeatherApi
 import me.niccorder.phunware.data.remote.http.CacheAllInterceptor
 import me.niccorder.phunware.data.remote.http.LoggingInterceptor
 import me.niccorder.scopes.AppScope
