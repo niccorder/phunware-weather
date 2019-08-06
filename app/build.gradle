@@ -15,11 +15,8 @@ android {
 
     vectorDrawables.useSupportLibrary = true
 
-    buildConfigField 'String', 'WEATHER_BASE_URL', '"https://api.darksky.net/"'
     buildConfigField 'String', 'WEATHER_API_KEY', '"eb6c2089bde2e34372974beec082cff9"'
-    buildConfigField 'String', 'LOCATION_BASE_URL', '"https://www.zipcodeapi.com/"'
     buildConfigField 'String', 'LOCATION_API_KEY', '"ZBt2tDluPkHjSCRHFzrBIrcLsFAIT4tSGXV9AhEpBlItYzaE8CgR4sCw8df1iIUY"'
-
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -66,7 +63,7 @@ android {
 dependencies {
   def versions = rootProject.versions
 
-  implementation project(':data-remote')
+  implementation project(':data-remote-impl')
   implementation project(':util-injection')
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"

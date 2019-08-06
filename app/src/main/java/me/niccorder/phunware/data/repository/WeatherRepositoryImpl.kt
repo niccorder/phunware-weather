@@ -5,6 +5,9 @@ import android.util.LruCache
 import io.reactivex.Observable
 import io.reactivex.subjects.AsyncSubject
 import me.niccorder.phunware.BuildConfig
+import me.niccorder.phunware.data.remote.WeatherApi
+import me.niccorder.phunware.model.Forecast
+import me.niccorder.phunware.model.Location
 import me.niccorder.scopes.AppScope
 import javax.inject.Inject
 
@@ -13,16 +16,16 @@ import javax.inject.Inject
  */
 @AppScope
 class WeatherRepositoryImpl @Inject constructor(
-  private val weatherApi: me.niccorder.phunware.data.remote.WeatherApi,
+  private val weatherApi: WeatherApi,
   private val memoryInfo: ActivityManager.MemoryInfo
 ) : WeatherRepository {
 
-  private val forecastCache: LruCache<String, AsyncSubject<me.niccorder.phunware.model.Forecast>> =
+  private val forecastCache: LruCache<String, AsyncSubject<Forecast>> =
     LruCache(
       ((memoryInfo.availMem / 0x100000L) / 100).toInt()       // 1% of Available memory
     )
 
-  override fun getForecast(location: me.niccorder.phunware.model.Location): Observable<me.niccorder.phunware.model.Forecast> {
+  override fun getForecast(location: Location): Observable<Forecast> {
     var forecastSubject = forecastCache.get(location.zipCode)
     if (forecastSubject == null) {
       forecastSubject = AsyncSubject.create()
