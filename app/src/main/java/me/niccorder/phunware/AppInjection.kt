@@ -13,7 +13,9 @@ import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import me.niccorder.phunware.data.DataModule
+import me.niccorder.phunware.data.local.LocalModule
+import me.niccorder.phunware.data.remote.RemoteModule
+import me.niccorder.phunware.data.repository.RepositoryModule
 import me.niccorder.phunware.location.LocationModule
 import me.niccorder.phunware.location.view.LocationListActivity
 import me.niccorder.phunware.weather.WeatherModule
@@ -56,7 +58,7 @@ class AppModule {
 }
 
 @Module
-abstract class PhunwareActivityInjectors {
+abstract class GeneratedActivityInjectors {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = [LocationModule::class])
@@ -71,9 +73,11 @@ abstract class PhunwareActivityInjectors {
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
+        GeneratedActivityInjectors::class,
         AppModule::class,
-        DataModule::class,
-        PhunwareActivityInjectors::class
+        RemoteModule::class,
+        LocalModule::class,
+        RepositoryModule::class
     ]
 )
 interface AppComponent : AndroidInjector<PhunwareApplication> {

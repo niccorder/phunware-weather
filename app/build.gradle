@@ -64,6 +64,7 @@ dependencies {
   def versions = rootProject.versions
 
   implementation project(':data')
+  implementation project(':data-local-impl')
   implementation project(':data-remote-impl')
   implementation project(':util-injection')
 

@@ -1,0 +1,13 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+
+    api project(":model")
+
+    api "androidx.room:room-common:$versions.room"
+    api "androidx.room:room-rxjava2:$versions.room"
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
