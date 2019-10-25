@@ -8,8 +8,8 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import me.niccorder.phunware.data.LocationRepository
-import me.niccorder.phunware.internal.addTo
 import me.niccorder.phunware.model.Location
+import me.niccorder.util.rx.addTo
 import timber.log.Timber
 import javax.inject.Inject
 

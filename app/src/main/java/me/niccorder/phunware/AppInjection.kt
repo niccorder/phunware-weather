@@ -18,11 +18,11 @@ import dagger.multibindings.IntoMap
 import me.niccorder.phunware.data.RepositoryModule
 import me.niccorder.phunware.data.local.LocalModule
 import me.niccorder.phunware.data.remote.RemoteModule
-import me.niccorder.phunware.internal.ViewModelKey
+import me.niccorder.phunware.feature.weather.WeatherActivity
+import me.niccorder.phunware.feature.weather.WeatherViewModel
 import me.niccorder.phunware.location.LocationListViewModel
 import me.niccorder.phunware.location.ui.LocationListActivity
-import me.niccorder.phunware.weather.WeatherActivity
-import me.niccorder.phunware.weather.WeatherViewModel
+import me.niccorder.phunware.util.injection.lifecycle.ViewModelKey
 import me.niccorder.scopes.ActivityScope
 import me.niccorder.scopes.AppScope
 

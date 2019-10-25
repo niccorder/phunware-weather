@@ -1,4 +1,4 @@
-package me.niccorder.phunware.internal
+package me.niccorder.phunware.util.injection.lifecycle
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

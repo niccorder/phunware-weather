@@ -1,1 +1,12 @@
-include ':app', ':model', ':util-injection', ':data-remote', ':data-remote-impl', ':data', ':data-impl', ':data-local', ':data-local-impl'
+include ':app',
+    ':data',
+    ':data-impl',
+    ':data-local',
+    ':data-local-impl',
+    ':data-remote',
+    ':data-remote-impl',
+    ':feature-weather',
+    ':model',
+    ':util-injection',
+    ':util-injection-lifecycle',
+    ':util-rx'

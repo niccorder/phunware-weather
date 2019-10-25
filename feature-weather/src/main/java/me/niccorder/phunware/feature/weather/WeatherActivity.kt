@@ -1,4 +1,4 @@
-package me.niccorder.phunware.weather
+package me.niccorder.phunware.feature.weather
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,11 +9,10 @@ import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_weather.*
-import me.niccorder.phunware.R
-import me.niccorder.phunware.internal.AppViewModelFactory
-import me.niccorder.phunware.internal.addTo
 import me.niccorder.phunware.model.Forecast
 import me.niccorder.phunware.model.Location
+import me.niccorder.phunware.util.injection.lifecycle.AppViewModelFactory
+import me.niccorder.util.rx.addTo
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException

@@ -1,4 +1,4 @@
-package me.niccorder.phunware.weather
+package me.niccorder.phunware.feature.weather
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.Observable
@@ -9,9 +9,9 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import me.niccorder.phunware.data.LocationRepository
 import me.niccorder.phunware.data.WeatherRepository
-import me.niccorder.phunware.internal.addTo
 import me.niccorder.phunware.model.Forecast
 import me.niccorder.phunware.model.Location
+import me.niccorder.util.rx.addTo
 import timber.log.Timber
 import javax.inject.Inject
 

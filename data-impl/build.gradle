@@ -14,7 +14,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField 'String', 'WEATHER_API_KEY', '"eb6c2089bde2e34372974beec082cff9"'
+        buildConfigField 'String', 'WEATHER_API_KEY', '"17619a33b680439a0b0681da50bf3eb6"'
         buildConfigField 'String', 'LOCATION_API_KEY', '"ZBt2tDluPkHjSCRHFzrBIrcLsFAIT4tSGXV9AhEpBlItYzaE8CgR4sCw8df1iIUY"'
     }
 
@@ -37,8 +37,8 @@ dependencies {
 
     api project(":util-injection")
     api project(":data")
-    implementation project(":data-local")
-    implementation project(":data-remote")
+    api project(":data-local")
+    api project(":data-remote")
 
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"
     api "com.google.dagger:dagger:$versions.dagger"

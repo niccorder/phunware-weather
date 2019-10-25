@@ -1,4 +1,4 @@
-package me.niccorder.phunware.internal
+package me.niccorder.util.rx
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

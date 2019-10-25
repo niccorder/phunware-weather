@@ -12,11 +12,11 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_location_list.*
 import me.niccorder.phunware.R
-import me.niccorder.phunware.internal.AppViewModelFactory
-import me.niccorder.phunware.internal.addTo
+import me.niccorder.phunware.feature.weather.WeatherActivity
 import me.niccorder.phunware.location.LocationListViewModel
 import me.niccorder.phunware.model.Location
-import me.niccorder.phunware.weather.WeatherActivity
+import me.niccorder.phunware.util.injection.lifecycle.AppViewModelFactory
+import me.niccorder.util.rx.addTo
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
