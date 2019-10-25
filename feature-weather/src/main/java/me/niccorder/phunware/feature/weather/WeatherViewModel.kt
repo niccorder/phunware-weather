@@ -1,19 +1,19 @@
 package me.niccorder.phunware.feature.weather
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import kotlinx.coroutines.launch
 import me.niccorder.phunware.data.LocationRepository
 import me.niccorder.phunware.data.WeatherRepository
 import me.niccorder.phunware.model.Forecast
 import me.niccorder.phunware.model.Location
-import me.niccorder.util.rx.addTo
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.properties.Delegates.observable
 
 class WeatherViewModel @Inject constructor(
   private val locationRepository: LocationRepository,
@@ -22,42 +22,26 @@ class WeatherViewModel @Inject constructor(
   private val logger get() = Timber.tag("weather-vm")
   private val disposables = CompositeDisposable()
 
-  private val zipCodeSubject: BehaviorSubject<String> = BehaviorSubject.createDefault("")
-
-  fun setZipCode(zipCode: String) {
-    logger.i("Setting zip code: $zipCode")
-    zipCodeSubject.onNext(zipCode)
-  }
-
   private val _location = BehaviorSubject.create<Location>()
   val location: Observable<Location> = _location.observeOn(AndroidSchedulers.mainThread())
 
   private val _forecast = BehaviorSubject.create<Forecast>()
   val forecast: Observable<Forecast> = _forecast.observeOn(AndroidSchedulers.mainThread())
 
-  init {
-    zipCodeSubject.switchMap { zipCode -> locationRepository.observeLocation(zipCode) }
-      .observeOn(Schedulers.io())
-      .subscribeBy(
-        onNext = { location ->
-          logger.i("Successfully loaded location")
-          _location.onNext(location)
-        },
-        onError = { throwable ->
-          logger.e(throwable, "Error while loading location.")
-        }
-      ) addTo disposables
+  var zipCode: String? by observable(null as String?) { _, old, new ->
+    logger.i("Setting zip code: $zipCode")
 
-    _location.switchMap { location -> weatherRepository.getForecast(location) }
-      .subscribeBy(
-        onNext = { forecast ->
-          logger.i("Successfully loaded forecast.")
-          _forecast.onNext(forecast)
-        },
-        onError = { throwable ->
-          logger.e(throwable, "Error while loading forecast")
-        }
-      ) addTo disposables
+    if (new != null) loadInformation(new)
+  }
+
+  private fun loadInformation(zipCode: String) {
+    logger.i("Loading weather information.")
+    viewModelScope.launch {
+      val location = locationRepository.getLocation(zipCode)
+      _location.onNext(location)
+      val forecast = weatherRepository.getForecast(location)
+      _forecast.onNext(forecast)
+    }
   }
 
   override fun onCleared() {

@@ -35,7 +35,7 @@ class WeatherActivity : DaggerAppCompatActivity() {
     setContentView(R.layout.activity_weather)
 
     val zipCode = intent.getStringExtra(KEY_ZIP_CODE)
-    weatherViewModel.setZipCode(zipCode)
+    weatherViewModel.zipCode = zipCode
 
     weatherViewModel.location.subscribeBy(
       onNext = ::setLocation,

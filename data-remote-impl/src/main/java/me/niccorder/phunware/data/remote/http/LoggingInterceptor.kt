@@ -11,6 +11,7 @@ import java.io.IOException
  * A kotlin singleton object which intercepts all okhttp3 requests and logs them to [Timber].
  */
 object LoggingInterceptor : Interceptor {
+  private val logger get() = Timber.tag("network")
 
   @SuppressLint("DefaultLocale")
   @Throws(IOException::class)
@@ -18,7 +19,7 @@ object LoggingInterceptor : Interceptor {
     val request = chain.request()
     val response = chain.proceed(request)
 
-    Timber.tag("Network").v(
+    logger.v(
       String.format(
         "%s\t%s\t\t%d",
         request.method(),

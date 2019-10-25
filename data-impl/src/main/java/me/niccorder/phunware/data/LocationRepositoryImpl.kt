@@ -1,10 +1,9 @@
 package me.niccorder.phunware.data
 
 import android.location.Geocoder
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.onStart
+import me.niccorder.phunware.data.errors.UnauthorizedException
 import me.niccorder.phunware.data.local.LocationDao
 import me.niccorder.phunware.data.remote.LocationApi
 import me.niccorder.phunware.model.Location
@@ -20,50 +19,56 @@ class LocationRepositoryImpl @Inject constructor(
 ) : LocationRepository {
   private val logger get() = Timber.tag("location-repo")
 
-  init {
-    getStartingLocations().subscribe {
-      logger.i("Successfully inserted starting locations")
+  private suspend fun getStartingLocations() {
+    locationDao.insertLocation(
+      Location(
+        "91773",
+        "San Dimas",
+        34.110183,
+        -117.810436
+      )
+    )
+    locationDao.insertLocation(
+      Location(
+        "90401",
+        "Santa Monica",
+        34.013639,
+        -118.493974
+      )
+    )
+    locationDao.insertLocation(
+      Location(
+        "10005",
+        "New York",
+        40.706015,
+        -74.008959
+      )
+    )
+  }
+
+  override val locations: Flow<List<Location>> = locationDao.getLocations()
+
+  override suspend fun getLocation(zipCode: String): Location {
+    val response = locationApi.getLocationInfo(
+      BuildConfig.LOCATION_API_KEY,
+      zipCode
+    )
+
+    if (response.isSuccessful) return response.body()!!
+
+    when (response.code()) {
+      401 -> throw UnauthorizedException
+      else -> throw UnknownError("Unknown error occurred when loading information for zipCode: $zipCode")
     }
   }
 
-  private fun getStartingLocations(): Flowable<List<Location>> =
-    Flowable.just(
-      listOf(
-        Location(
-          "91773",
-          "San Dimas",
-          34.110183,
-          -117.810436
-        ),
-        Location(
-          "90401",
-          "Santa Monica",
-          34.013639,
-          -118.493974
-        ),
-        Location(
-          "10005",
-          "New York",
-          40.706015,
-          -74.008959
-        )
-      )
-    ).doOnNext { it.forEach { locationDao.insertLocation(it) } }.subscribeOn(Schedulers.io())
+  override fun observeLocation(zipCode: String): Flow<Location>
+      = locationDao.getLocations(zipCode).onStart { emit(Location.EMPTY) }
 
-  override val locations: Observable<List<Location>> = locationDao.getLocations()
-    .observeOn(Schedulers.io())
-
-  override fun getLocation(zipCode: String): Single<Location> = locationApi.getLocationInfo(
-    BuildConfig.LOCATION_API_KEY,
-    zipCode
-  ).onErrorReturn { Location.EMPTY }
-
-  override fun observeLocation(
-    zipCode: String
-  ): Observable<Location> = locationDao.getLocations(zipCode).map { locations ->
-    if (locations.isNotEmpty()) locations.first() else Location.EMPTY
+  override suspend fun addLocation(zipCode: String): Location {
+    val location = getLocation(zipCode)
+    logger.i("Inserting location ${location.zipCode}")
+    locationDao.insertLocation(location)
+    return location
   }
-
-  override fun addLocation(zipCode: String): Single<Location> = getLocation(zipCode)
-    .doOnSuccess { location -> locationDao.insertLocation(location) }
 }

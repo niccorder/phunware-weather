@@ -1,8 +1,6 @@
 package me.niccorder.phunware.data
 
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 import me.niccorder.phunware.model.Location
 
 /**
@@ -18,7 +16,7 @@ interface LocationRepository {
   /**
    * @return a [Flowable] which emits all currently stored locations.
    */
-  val locations: Observable<List<Location>>
+  val locations: Flow<List<Location>>
 
   /**
    * Converts a zip-code to a [Location].
@@ -26,7 +24,7 @@ interface LocationRepository {
    * @param zipCode a 5 digit-only string zip code.
    * @return a [Flowable] which emits the Location zip equivalent.
    */
-  fun getLocation(zipCode: String): Single<Location>
+  suspend fun getLocation(zipCode: String): Location
 
   /**
    * Converts a zip-code to a [Location].
@@ -34,7 +32,7 @@ interface LocationRepository {
    * @param zipCode a 5 digit-only string zip code.
    * @return a [Flowable] which emits the Location zip equivalent.
    */
-  fun observeLocation(zipCode: String): Observable<Location>
+  fun observeLocation(zipCode: String): Flow<Location>
 
   /**
    * Add's a location to the repository.
@@ -42,5 +40,5 @@ interface LocationRepository {
    * @param location to be added.
    * @return a [Single] which emit's the original location once it has been added.
    */
-  fun addLocation(zipCode: String): Single<Location>
+  suspend fun addLocation(zipCode: String): Location
 }

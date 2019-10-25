@@ -67,6 +67,7 @@ dependencies {
   api "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
   api "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
   api "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+  api "androidx.lifecycle:lifecycle-process:$versions.lifecycle"
 
   // Dagger2
   api "com.google.dagger:dagger:$versions.dagger"

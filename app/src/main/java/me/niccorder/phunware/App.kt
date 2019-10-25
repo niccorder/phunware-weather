@@ -6,7 +6,7 @@ import timber.log.Timber
 /**
  * Our Application's entry point (or one of them at least)!
  */
-class MainApp : DaggerApplication() {
+class App : DaggerApplication() {
 
   override fun applicationInjector() = DaggerAppComponent.factory().create(this)
 

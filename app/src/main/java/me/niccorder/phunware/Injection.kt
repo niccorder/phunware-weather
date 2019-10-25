@@ -28,85 +28,92 @@ import me.niccorder.scopes.ActivityScope
 import me.niccorder.scopes.AppScope
 
 @Module
-abstract class AppBindingModule {
-    @Binds
-    @AppScope
-    abstract fun appContext(app: Application): Context
+abstract class AppModule {
 
-    @Binds
-    @AppScope
-    abstract fun navigator(impl: PhunwareNavigator): Navigator
-}
+  @Binds
+  @AppScope
+  abstract fun appContext(app: Application): Context
 
-@Module(includes = [AppBindingModule::class])
-class AppModule {
+  @Binds
+  @AppScope
+  abstract fun navigator(impl: PhunwareNavigator): Navigator
+
+  @Module
+  companion object {
 
     @Provides
     @AppScope
+    @JvmStatic
     fun activityManager(
-        context: Context
+      context: Context
     ): ActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
 
     @Provides
-    fun memoryInfo(activityManager: ActivityManager): ActivityManager.MemoryInfo {
-        val memInfo = ActivityManager.MemoryInfo()
-        activityManager.getMemoryInfo(memInfo)
-        return memInfo
-    }
-
-    @Provides
     @AppScope
+    @JvmStatic
     fun locationManager(
-        context: Context
+      context: Context
     ): LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     @Provides
     @AppScope
+    @JvmStatic
+    fun memoryInfo(activityManager: ActivityManager): ActivityManager.MemoryInfo {
+      val memInfo = ActivityManager.MemoryInfo()
+      activityManager.getMemoryInfo(memInfo)
+      return memInfo
+    }
+
+
+    @Provides
+    @AppScope
+    @JvmStatic
     fun geocoder(context: Context): Geocoder = Geocoder(context)
+  }
 }
 
 @Module
 abstract class GeneratedActivityInjectors {
 
-    @ActivityScope
-    @ContributesAndroidInjector
-    internal abstract fun homeActivity(): LocationListActivity
+  @ActivityScope
+  @ContributesAndroidInjector
+  internal abstract fun homeActivity(): LocationListActivity
 
-    @ActivityScope
-    @ContributesAndroidInjector
-    internal abstract fun weatherActivity(): WeatherActivity
+  @ActivityScope
+  @ContributesAndroidInjector
+  internal abstract fun weatherActivity(): WeatherActivity
 }
 
 @Module
 abstract class ViewModelModule {
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(LocationListViewModel::class)
-    abstract fun locationList(vm: LocationListViewModel): ViewModel
+  @Binds
+  @IntoMap
+  @ViewModelKey(LocationListViewModel::class)
+  abstract fun locationList(vm: LocationListViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(WeatherViewModel::class)
-    abstract fun weatherVieWModel(vm: WeatherViewModel): ViewModel
+  @Binds
+  @IntoMap
+  @ViewModelKey(WeatherViewModel::class)
+  abstract fun weatherVieWModel(vm: WeatherViewModel): ViewModel
 }
 
 @AppScope
 @Component(
-    modules = [
-        AndroidSupportInjectionModule::class,
-        GeneratedActivityInjectors::class,
-        AppModule::class,
-        ViewModelModule::class,
-        RemoteModule::class,
-        LocalModule::class,
-        RepositoryModule::class
-    ]
+  modules = [
+    AndroidSupportInjectionModule::class,
+    GeneratedActivityInjectors::class,
+    AppModule::class,
+    ViewModelModule::class,
+    RemoteModule::class,
+    LocalModule::class,
+    RepositoryModule::class
+  ]
 )
-interface AppComponent : AndroidInjector<MainApp> {
+interface AppComponent : AndroidInjector<App> {
 
-    @Component.Factory
-    interface Factory {
-        fun create(@BindsInstance app: Application): AppComponent
-    }
+  @Component.Factory
+  interface Factory {
+    fun create(@BindsInstance app: Application): AppComponent
+  }
 }
