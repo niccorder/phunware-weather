@@ -17,7 +17,14 @@ data class Forecast(
   val timezone: String,
 
   @SerializedName("currently")
-  val current: DataPoint?
+  val current: DataPoint?,
 
+  @SerializedName("minutely")
+  val minutely: DataBlock?,
+
+  @SerializedName("hourly")
+  val hourly: DataBlock?,
+
+  @SerializedName("daily")
+  val daily: DataBlock?
 )
-
