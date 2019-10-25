@@ -1,4 +1,4 @@
-package me.niccorder.phunware.location.ui
+package me.niccorder.phunware.feature.location.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_location.view.*
-import me.niccorder.phunware.R.layout
+import me.niccorder.phunware.feature.location.R
 import me.niccorder.phunware.model.Location
 import me.niccorder.scopes.ActivityScope
 import javax.inject.Inject
@@ -34,7 +34,7 @@ class LocationHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
   companion object {
     fun create(context: Context): LocationHolder =
       LocationHolder(
-        View.inflate(context, layout.item_location, null)
+        View.inflate(context, R.layout.item_location, null)
       )
   }
 }
@@ -45,7 +45,9 @@ class LocationHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
  * @see LocationHolder
  */
 @ActivityScope
-class LocationAdapter @Inject constructor() : ListAdapter<Location, LocationHolder>(LocationAdapterDiffer) {
+class LocationAdapter @Inject constructor() : ListAdapter<Location, LocationHolder>(
+  LocationAdapterDiffer
+) {
 
   private val locationClickSubject = PublishSubject.create<Location>()
   val locationClicks: Observable<Location> = locationClickSubject
@@ -53,7 +55,9 @@ class LocationAdapter @Inject constructor() : ListAdapter<Location, LocationHold
   override fun onCreateViewHolder(
     parent: ViewGroup,
     viewType: Int
-  ): LocationHolder = LocationHolder.create(parent.context).apply {
+  ): LocationHolder = LocationHolder.create(
+    parent.context
+  ).apply {
     itemView.setOnClickListener {
       locationClickSubject.onNext(getItem(adapterPosition))
     }

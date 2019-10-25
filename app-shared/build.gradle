@@ -48,6 +48,8 @@ dependencies {
   api "androidx.cardview:cardview:$versions.cardview"
   api "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
   api "androidx.core:core-ktx:$versions.support_ktx"
+  api "androidx.activity:activity:$versions.activity"
+  api "androidx.activity:activity-ktx:$versions.activity"
   api "androidx.fragment:fragment:$versions.fragment"
   api "androidx.fragment:fragment-ktx:$versions.fragment"
   api "androidx.emoji:emoji-appcompat:$versions.emoji"

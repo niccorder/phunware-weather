@@ -1,4 +1,4 @@
-include ':app', ':app-shared',
+include ':app', ':app-shared', ':feature-location',
     ':data',
     ':data-impl',
     ':data-local',

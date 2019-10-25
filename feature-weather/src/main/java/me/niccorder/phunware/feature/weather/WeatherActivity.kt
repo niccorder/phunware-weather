@@ -1,6 +1,8 @@
 package me.niccorder.phunware.feature.weather
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -32,7 +34,7 @@ class WeatherActivity : DaggerAppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_weather)
 
-    val zipCode = intent.getStringExtra(Location.KEY_LOCATION)
+    val zipCode = intent.getStringExtra(KEY_ZIP_CODE)
     weatherViewModel.setZipCode(zipCode)
 
     weatherViewModel.location.subscribeBy(
@@ -91,5 +93,17 @@ class WeatherActivity : DaggerAppCompatActivity() {
   override fun onDestroy() {
     super.onDestroy()
     disposables.clear()
+  }
+
+  companion object {
+    private const val KEY_ZIP_CODE = "key_zip_code"
+
+    @JvmStatic
+    fun getIntent(
+      from: Context,
+      zipCode: String
+    ) = Intent(from, WeatherActivity::class.java).apply {
+      putExtra(KEY_ZIP_CODE, zipCode)
+    }
   }
 }

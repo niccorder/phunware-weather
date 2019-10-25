@@ -1,4 +1,4 @@
-package me.niccorder.phunware.location
+package me.niccorder.phunware.feature.location
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.Observable

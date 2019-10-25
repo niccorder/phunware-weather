@@ -1,6 +1,5 @@
-package me.niccorder.phunware.location.ui
+package me.niccorder.phunware.feature.location.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -11,10 +10,10 @@ import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_location_list.*
-import me.niccorder.phunware.R
-import me.niccorder.phunware.feature.weather.WeatherActivity
-import me.niccorder.phunware.location.LocationListViewModel
+import me.niccorder.phunware.feature.location.LocationListViewModel
+import me.niccorder.phunware.feature.location.R
 import me.niccorder.phunware.model.Location
+import me.niccorder.phunware.shared.Navigator
 import me.niccorder.phunware.util.injection.lifecycle.AppViewModelFactory
 import me.niccorder.util.rx.addTo
 import retrofit2.HttpException
@@ -27,6 +26,7 @@ class LocationListActivity : DaggerAppCompatActivity() {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
 
+  @Inject lateinit var navigator: Navigator
   @Inject lateinit var appVmFactory: AppViewModelFactory
   @Inject lateinit var locationAdapter: LocationAdapter
 
@@ -64,11 +64,7 @@ class LocationListActivity : DaggerAppCompatActivity() {
   }
 
   private fun showWeather(location: Location) {
-    startActivity(
-      Intent(this, WeatherActivity::class.java).apply {
-        putExtra(Location.KEY_LOCATION, location.zipCode)
-      }
-    )
+    navigator.toWeather(this, location.zipCode)
   }
 
   fun showError(throwable: Throwable) {

@@ -24,7 +24,6 @@ data class Location(
 
 ) {
   companion object {
-    const val KEY_LOCATION = "key_location"
     val EMPTY = Location("-1", "", 0.0, 0.0)
   }
 }

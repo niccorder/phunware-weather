@@ -67,6 +67,7 @@ dependencies {
   // Features
   implementation project(":app-shared")
   implementation project(':feature-weather')
+  implementation project(':feature-location')
 
   // Library implementations
   implementation project(':data-impl')
