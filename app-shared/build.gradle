@@ -1,0 +1,96 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+  compileSdkVersion rootProject.compile_sdk
+
+  defaultConfig {
+    minSdkVersion rootProject.min_sdk
+    targetSdkVersion rootProject.target_sdk
+    versionCode 1
+    versionName "1.0"
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles 'consumer-rules.pro'
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  def versions = rootProject.versions
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+  api project(':util-injection')
+  api project(':util-injection-lifecycle')
+  api project(':util-rx')
+
+  // Android support libraries.
+  api "androidx.annotation:annotation:$versions.support"
+  api "androidx.appcompat:appcompat:$versions.appcompat"
+  api "androidx.collection:collection-ktx:$versions.support"
+  api "androidx.cardview:cardview:$versions.cardview"
+  api "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+  api "androidx.core:core-ktx:$versions.support_ktx"
+  api "androidx.fragment:fragment:$versions.fragment"
+  api "androidx.fragment:fragment-ktx:$versions.fragment"
+  api "androidx.emoji:emoji-appcompat:$versions.emoji"
+  api "androidx.emoji:emoji-bundled:$versions.emoji"
+  api "androidx.exifinterface:exifinterface:$versions.exifinterface"
+  api "androidx.recyclerview:recyclerview:$versions.recycler"
+  api "com.google.android.material:material:$versions.material"
+
+  // Android Arch. Core
+  api "androidx.arch.core:core-runtime:$versions.architecture_core"
+  api "androidx.arch.core:core-common:$versions.architecture_core"
+
+  // Android lifecycle
+  api "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
+  api "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+  api "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+  api "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+
+  // Dagger2
+  api "com.google.dagger:dagger:$versions.dagger"
+  api "com.google.dagger:dagger-android-support:$versions.dagger"
+
+  // RxJava
+  api "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+  api "io.reactivex.rxjava2:rxkotlin:$versions.rx_kotlin"
+  api "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+  api "com.jakewharton.rxbinding2:rxbinding-kotlin:$versions.rx_bindings"
+
+  // Misc
+  api "com.jakewharton.timber:timber:$versions.timber"
+  api "com.github.bumptech.glide:glide:$versions.glide"
+
+  testImplementation "junit:junit:$versions.junit"
+  testImplementation "com.google.truth:truth:$versions.truth"
+  testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+  testImplementation "org.mockito:mockito-core:$versions.mockito"
+  testImplementation "org.mockito:mockito-all:$versions.mockito_all"
+
+  testImplementation "androidx.test:core:$versions.support"
+  testImplementation "androidx.arch.core:core-testing:$versions.architecture_core"
+
+  androidTestImplementation "androidx.test:core:$versions.atsl_runner"
+  androidTestImplementation "androidx.test:runner:$versions.atsl_runner"
+  androidTestImplementation "androidx.arch.core:core-testing:$versions.architecture_core"
+  androidTestImplementation "androidx.test.espresso:espresso-core:$versions.atsl_espresso"
+}

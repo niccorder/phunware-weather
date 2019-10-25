@@ -1,7 +1,3 @@
 <resources>
   <string name="app_name">Phunware Interview</string>
-  <string name="activity_weather_label">Weather</string>
-  <string name="add_location_title">Add Location</string>
-  <string name="add_location_input_hint">Enter a zip code</string>
-  <string name="add">Add</string>
 </resources>

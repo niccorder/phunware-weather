@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="unknown_error">Oops! We ran into an odd issue.</string>
-  <string name="network_error">There was a network error.</string>
-
-  <string name="zip_length_error">Zip must be of length 5.</string>
-  <string name="illegal_zip_error">Zip can only contain digits.</string>
-  <string name="zip_not_found_error">Could not find zip code.</string>
-</resources>
