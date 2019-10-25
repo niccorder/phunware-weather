@@ -1,4 +1,4 @@
-package me.niccorder.phunware.location.view
+package me.niccorder.phunware.location.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.item_location.view.*
 import me.niccorder.phunware.R.layout
 import me.niccorder.phunware.model.Location
+import me.niccorder.scopes.ActivityScope
+import javax.inject.Inject
 
 /**
  * The [RecyclerView.ViewHolder] for a [Location] model.
@@ -40,15 +44,18 @@ class LocationHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
  *
  * @see LocationHolder
  */
-class LocationAdapter(
-  private val onLocationClick: (position: Int) -> Unit
-) : ListAdapter<Location, LocationHolder>(LocationAdapterDiffer) {
+@ActivityScope
+class LocationAdapter @Inject constructor() : ListAdapter<Location, LocationHolder>(LocationAdapterDiffer) {
+
+  private val locationClickSubject = PublishSubject.create<Location>()
+  val locationClicks: Observable<Location> = locationClickSubject
+
   override fun onCreateViewHolder(
     parent: ViewGroup,
     viewType: Int
   ): LocationHolder = LocationHolder.create(parent.context).apply {
     itemView.setOnClickListener {
-      onLocationClick.invoke(adapterPosition)
+      locationClickSubject.onNext(getItem(adapterPosition))
     }
   }
 

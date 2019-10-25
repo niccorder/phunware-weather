@@ -1,18 +1,15 @@
 package me.niccorder.phunware.data
 
-import android.location.Address
 import android.location.Geocoder
-import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import me.niccorder.phunware.data.local.LocationDao
 import me.niccorder.phunware.data.remote.LocationApi
 import me.niccorder.phunware.model.Location
 import me.niccorder.scopes.AppScope
 import timber.log.Timber
-import java.io.IOException
 import javax.inject.Inject
 
 @AppScope
@@ -21,6 +18,13 @@ class LocationRepositoryImpl @Inject constructor(
   private val locationDao: LocationDao,
   private val locationApi: LocationApi
 ) : LocationRepository {
+  private val logger get() = Timber.tag("location-repo")
+
+  init {
+    getStartingLocations().subscribe {
+      logger.i("Successfully inserted starting locations")
+    }
+  }
 
   private fun getStartingLocations(): Flowable<List<Location>> =
     Flowable.just(
@@ -46,49 +50,20 @@ class LocationRepositoryImpl @Inject constructor(
       )
     ).doOnNext { it.forEach { locationDao.insertLocation(it) } }.subscribeOn(Schedulers.io())
 
-  override val locations: Flowable<List<Location>> = locationDao.getLocations()
-    .flatMap { locations ->
-      when {
-        locations.isEmpty() -> return@flatMap getStartingLocations()
-        else -> return@flatMap Flowable.just(locations)
-      }
-    }
-    .subscribeOn(Schedulers.io())
+  override val locations: Observable<List<Location>> = locationDao.getLocations()
+    .observeOn(Schedulers.io())
 
-  override fun addLocation(location: Location): Single<Location> =
-    Single.create {
-      locationDao.insertLocation(location)
-      it.onSuccess(location)
-    }
+  override fun getLocation(zipCode: String): Single<Location> = locationApi.getLocationInfo(
+    BuildConfig.LOCATION_API_KEY,
+    zipCode
+  ).onErrorReturn { Location.EMPTY }
 
-  override fun getLocation(zipCode: String): Flowable<Location> =
-    Flowable.zip(
-      locationApi.getLocationInfo(
-        BuildConfig.LOCATION_API_KEY,
-        zipCode
-      ).onErrorReturn { Location.EMPTY },
-      Flowable.create<Address>(
-        {
-          try {
-            it.onNext(geocoder.getFromLocationName(zipCode, 1)[0])
-          } catch (t: Throwable) {
-            it.onError(t)
-          }
-        },
-        BackpressureStrategy.LATEST
-      ).map {
-        Location(
-          zipCode,
-          it.featureName,
-          it.latitude,
-          it.longitude
-        )
-      }.onErrorReturn { Location.EMPTY },
-      BiFunction { remote: Location, local: Location ->
-        Timber.e(remote.toString())
-        Timber.e(local.toString())
-        local.copy(city = remote.city)
-      })
-      .doOnNext { if (Location.EMPTY == it) throw IOException() }
-      .subscribeOn(Schedulers.io())
+  override fun observeLocation(
+    zipCode: String
+  ): Observable<Location> = locationDao.getLocations(zipCode).map { locations ->
+    if (locations.isNotEmpty()) locations.first() else Location.EMPTY
+  }
+
+  override fun addLocation(zipCode: String): Single<Location> = getLocation(zipCode)
+    .doOnSuccess { location -> locationDao.insertLocation(location) }
 }

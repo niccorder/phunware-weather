@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.location.Geocoder
 import android.location.LocationManager
+import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
@@ -13,13 +14,15 @@ import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import dagger.multibindings.IntoMap
 import me.niccorder.phunware.data.RepositoryModule
 import me.niccorder.phunware.data.local.LocalModule
 import me.niccorder.phunware.data.remote.RemoteModule
-import me.niccorder.phunware.location.LocationModule
-import me.niccorder.phunware.location.view.LocationListActivity
-import me.niccorder.phunware.weather.WeatherModule
-import me.niccorder.phunware.weather.view.WeatherActivity
+import me.niccorder.phunware.internal.ViewModelKey
+import me.niccorder.phunware.location.LocationListViewModel
+import me.niccorder.phunware.location.ui.LocationListActivity
+import me.niccorder.phunware.weather.WeatherActivity
+import me.niccorder.phunware.weather.WeatherViewModel
 import me.niccorder.scopes.ActivityScope
 import me.niccorder.scopes.AppScope
 
@@ -61,12 +64,26 @@ class AppModule {
 abstract class GeneratedActivityInjectors {
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = [LocationModule::class])
+    @ContributesAndroidInjector
     internal abstract fun homeActivity(): LocationListActivity
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = [WeatherModule::class])
+    @ContributesAndroidInjector
     internal abstract fun weatherActivity(): WeatherActivity
+}
+
+@Module
+abstract class ViewModelModule {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LocationListViewModel::class)
+    abstract fun locationList(vm: LocationListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WeatherViewModel::class)
+    abstract fun weatherVieWModel(vm: WeatherViewModel): ViewModel
 }
 
 @AppScope
@@ -75,6 +92,7 @@ abstract class GeneratedActivityInjectors {
         AndroidSupportInjectionModule::class,
         GeneratedActivityInjectors::class,
         AppModule::class,
+        ViewModelModule::class,
         RemoteModule::class,
         LocalModule::class,
         RepositoryModule::class

@@ -5,7 +5,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="@dimen/spacing_normal"
-  tools:context=".weather.view.WeatherActivity">
+  tools:context=".weather.WeatherActivity">
 
   <RelativeLayout
     android:id="@+id/current_status_container"

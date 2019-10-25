@@ -5,23 +5,23 @@ buildscript {
     compile_sdk = 28
 
     versions = [:]
-    versions.kotlin = "1.3.41"
-    versions.android_gradle_plugin = '3.4.2'
+    versions.kotlin = "1.3.50"
+    versions.android_gradle_plugin = '3.5.1'
 
     versions.support = "1.1.0-beta01"
-    versions.support_ktx = "1.1.0-beta01"
-    versions.appcompat = "1.1.0-alpha05"
+    versions.support_ktx = "1.2.0-beta01"
+    versions.appcompat = "1.1.0"
     versions.browser = "1.0.0"
-    versions.constraint_layout = "2.0.0-beta1"
+    versions.constraint_layout = "2.0.0-beta2"
     versions.cardview = "1.0.0"
     versions.emoji = "1.0.0"
-    versions.fragment = "1.1.0-alpha09"
-    versions.exifinterface = "1.1.0-alpha01"
-    versions.material = "1.1.0-alpha06"
-    versions.recycler = "1.1.0-alpha05"
+    versions.fragment = "1.2.0-rc01"
+    versions.exifinterface = "1.1.0-rc01"
+    versions.material = "1.1.0-beta01"
+    versions.recycler = "1.1.0-rc01"
     versions.multidex = "2.0.1"
 
-    versions.architecture_core = "2.1.0-beta01"
+    versions.architecture_core = "2.1.0-rc01"
     versions.lifecycle = "2.0.0"
     versions.paging = "2.1.0"
     versions.room = "2.1.0-beta01"

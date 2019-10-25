@@ -1,6 +1,6 @@
 package me.niccorder.phunware.data.remote
 
-import io.reactivex.Flowable
+import io.reactivex.Single
 import me.niccorder.phunware.model.Location
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,5 +20,5 @@ interface LocationApi {
   fun getLocationInfo(
     @Path("apiKey") apiKey: String,
     @Path("zip") zipCode: String
-  ): Flowable<Location>
+  ): Single<Location>
 }

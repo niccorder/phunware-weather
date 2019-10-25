@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.reactivex.Flowable
+import io.reactivex.Observable
 import me.niccorder.phunware.model.Location
 
 /**
@@ -20,7 +20,10 @@ interface LocationDao {
      * @return all cities stored in the local database.
      */
     @Query("SELECT * FROM location")
-    fun getLocations(): Flowable<List<Location>>
+    fun getLocations(): Observable<List<Location>>
+
+    @Query("SELECT * FROM location WHERE zipCode = :zipCode")
+    fun getLocations(zipCode: String): Observable<List<Location>>
 
     /**
      * @return all cities stored in the local database.

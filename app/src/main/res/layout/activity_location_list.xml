@@ -5,7 +5,7 @@
   android:id="@+id/root"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".location.view.LocationListActivity">
+  tools:context=".location.ui.LocationListActivity">
 
   <androidx.core.widget.NestedScrollView
     android:id="@+id/container"
@@ -27,9 +27,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/spacing_normal"
-    android:src="@drawable/ic_add_white_24dp"
     app:fabSize="normal"
     app:layout_anchor="@+id/container"
-    app:layout_anchorGravity="bottom|end" />
+    app:layout_anchorGravity="bottom|end"
+    app:srcCompat="@drawable/ic_add_white_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
